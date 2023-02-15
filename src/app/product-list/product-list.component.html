@@ -2,26 +2,43 @@
 <h2>Products</h2>
 <h2 *ngIf="!products.length">Add products to show list</h2>
 <div class="container-products" *ngFor="let product of products;let i = index">
-    
+
     <h3>
-        <a [title]="product.name + ' details'">
+        <a [title]="product.name" (click)="editProduct(i)">
         {{product.name}}
         </a>
     </h3>
-    
+
         <p *ngIf="product.description">
             Description: {{product.description}}
         </p>
         <p *ngIf="product.price">
             Price: {{product.price}}€
         </p>
-    
+
     <div class="delete-btn">
         <button type="button" (click)="deleteProduct(i)">X</button>
     </div>
-    
+
+
+
 </div>
-<div class="add-container">
+<div class="add-container" *ngIf="showEdit">
+  <h2>Edita el producte seleccionat</h2>
+  <form [formGroup]="productForm" (ngSubmit)="modify()">
+    <input type="text" formControlName="name" placeholder="Edita el producte">
+    <input type="number" formControlName="price" placeholder="Edita el preu">
+    <input type="text" formControlName="description" placeholder="Edita la descripció">
+    <button class="add-btn" type="submit">
+      Edit
+    </button>
+  </form>
+</div>
+<!-- <div class="add-container" *ngFor="let beer of beerBrands;let i = index">
+    <label>{{beer.name}}<input type="checkbox" [checked]="beer.active" (click)="selectedBeer(i)"></label>
+</div> -->
+<div class="add-container" *ngIf="showAdd">
+  <h2>Afegeixi un producte</h2>
     <form [formGroup]="productForm" (ngSubmit)="add();">
         <input type="text" formControlName="name" placeholder="Introdueix un producte">
         <input type="number" formControlName="price" placeholder="Introdueix un preu">
