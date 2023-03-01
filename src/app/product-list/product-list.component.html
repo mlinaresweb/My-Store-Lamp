@@ -2,24 +2,24 @@
 <h2>Products</h2>
 <h2 *ngIf="!products.length">Add products to show list</h2>
 <div class="container-products" *ngFor="let product of products;let i = index">
-    
+
     <h3>
         <a [title]="product.name + ' details'">
         {{product.name}}
         </a>
     </h3>
-    
+
         <p *ngIf="product.description">
             Description: {{product.description}}
         </p>
         <p *ngIf="product.price">
             Price: {{product.price}}€
         </p>
-    
+
     <div class="delete-btn">
         <button type="button" (click)="deleteProduct(i)">X</button>
     </div>
-    
+
 </div>
 <div class="add-container">
     <form [formGroup]="productForm" (ngSubmit)="add();">
