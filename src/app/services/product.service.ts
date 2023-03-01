@@ -8,9 +8,16 @@ import { Product } from '../products';
 })
 export class ProductService {
 
+<<<<<<< HEAD
   private url = 'http://localhost:8000/api/get_products';
   private urlpost = 'http://localhost:8000/api/add_product';
   private urldelete = 'http://localhost:8000/api/delete_product';
+=======
+  private url = 'http://localhost:3000/api/get_products';
+  private urlpost = 'http://localhost:3000/api/add_product';
+  private urlput = 'http://localhost:3000/api/update_product';
+  private urldelete = 'http://localhost:3000/api/delete_product';
+>>>>>>> 892da240ef3f4a8fb8fa6778f0e9d5bc846e7e1d
   constructor(private httpClient:HttpClient) { }
 
   getProducts():Observable<Product[]>{
@@ -22,6 +29,12 @@ export class ProductService {
     const data = {name:name,price:price,description:description};
 
     return this.httpClient.post(this.urlpost,data,{observe:'body'}).pipe(catchError(this.handleError<any>('addNewProduct')));
+  }
+
+  updateProduct(_id:string,name:string,description:string,price:number):Observable<object>{
+
+
+    return this.httpClient.put(this.urlput+'/'+_id,{name:name,price:price,description:description},{observe:'response'}).pipe(catchError(this.handleError<any>('updateProduct')));
   }
 
   deleteProduct(id:string):Observable<object>{
